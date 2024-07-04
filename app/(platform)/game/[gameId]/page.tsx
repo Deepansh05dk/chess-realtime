@@ -73,11 +73,16 @@ const Game = () => {
     userSelectedMoveIndexRef.current = userSelectedMoveIndex;
   }, [userSelectedMoveIndex]);
 
-  // useEffect(() => {
-  //   if (!user) {
-  //     window.location.href = "/";
-  //   }
-  // }, [user]);
+  useEffect(() => {
+    if (!user) {
+      toast({
+        variant: "default",
+        title: "Something went wrong.",
+        description: "Please Login First",
+      });
+      route.push("/");
+    }
+  }, [user]);
 
   useEffect(() => {
     if (!socket) {
