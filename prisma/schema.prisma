@@ -1,0 +1,88 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Game {
+  id                            String      @id
+  whitePlayerId                 String
+  blackPlayerId                 String
+  status                        GameStatus
+  result                        GameResult?
+  timeControl                   TimeControl
+  startingFen                   String      @default("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
+  currentFen                    String?
+  startAt                       DateTime    @default(now())
+  endAt                         DateTime?
+  opening                       String?
+  event                         String?
+  User_Game_blackPlayerIdToUser User        @relation("Game_blackPlayerIdToUser", fields: [blackPlayerId], references: [id])
+  User_Game_whitePlayerIdToUser User        @relation("Game_whitePlayerIdToUser", fields: [whitePlayerId], references: [id])
+  Move                          Move[]
+
+  @@index([status, result])
+}
+
+model Move {
+  id         String   @id
+  gameId     String
+  moveNumber Int
+  from       String
+  to         String
+  comments   String?
+  before     String
+  after      String
+  timeTaken  Int?     @default(0)
+  createdAt  DateTime @default(now())
+  san        String?
+  Game       Game     @relation(fields: [gameId], references: [id])
+
+  @@index([gameId])
+}
+
+model User {
+  id                            String       @id
+  username                      String?      @unique
+  name                          String?
+  email                         String       @unique
+  provider                      AuthProvider
+  password                      String?
+  rating                        Int          @default(1200)
+  createdAt                     DateTime     @default(now())
+  lastLogin                     DateTime?
+  Game_Game_blackPlayerIdToUser Game[]       @relation("Game_blackPlayerIdToUser")
+  Game_Game_whitePlayerIdToUser Game[]       @relation("Game_whitePlayerIdToUser")
+
+  @@index([rating])
+}
+
+enum AuthProvider {
+  EMAIL
+  GOOGLE
+  GITHUB
+}
+
+enum GameResult {
+  WHITE_WINS
+  BLACK_WINS
+  DRAW
+}
+
+enum GameStatus {
+  IN_PROGRESS
+  COMPLETED
+  ABANDONED
+  TIME_UP
+  PLAYER_EXIT
+}
+
+enum TimeControl {
+  CLASSICAL
+  RAPID
+  BLITZ
+  BULLET
+}
