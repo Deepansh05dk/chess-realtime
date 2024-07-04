@@ -19,6 +19,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           },
           update: {
             name: profile?.name,
+            id: user.id,
           },
           where: {
             email: user.email,
@@ -27,12 +28,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return true;
     },
-    session: ({ session, token }) => ({
-      ...session,
-      user: {
-        ...session.user,
-        id: token.sub,
-      },
-    }),
+    jwt: ({ token, user }) => {
+      if (user) {
+        token.id = user.id as string;
+      }
+      return token;
+    },
+    session: ({ session, token }) => {
+      if (session) {
+        session.user.id = token.id;
+      }
+      return session;
+    },
   },
 });

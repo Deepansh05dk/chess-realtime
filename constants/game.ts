@@ -10,3 +10,4 @@ export const USER_TIMEOUT = "user_timeout";
 export const GAME_TIME = "game_time";
 export const GAME_ENDED = "game_ended";
 export const EXIT_GAME = "exit_game";
+export const GAME_NOT_FOUND = "game_not_found";

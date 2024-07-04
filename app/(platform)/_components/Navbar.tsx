@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import React from "react";
 import { signIn, auth, signOut } from "@/auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Link from "next/link";
 
 export async function Navbar() {
   const session = await auth();
@@ -10,9 +11,11 @@ export async function Navbar() {
       <div className="mx-auto max-w-screen-xl px-4 py-6 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           <div className="text-left">
-            <h1 className="text-xl font-bold text-white sm:text-3xl">
-              ChessPlay.com
-            </h1>
+            <Link href={"/"}>
+              <h1 className="text-xl font-bold text-white sm:text-3xl cursor-pointer">
+                ChessPlay.com
+              </h1>
+            </Link>
           </div>
 
           <div className=" flex  gap-4  flex-row items-center">

@@ -8,14 +8,13 @@ import { useRouter, useParams } from "next/navigation";
 import MovesTable from "./_components/MovesTable";
 import { useSession } from "next-auth/react";
 import { UserAvatar } from "./_components/UserAvatar";
+import { useToast } from "@/components/ui/use-toast";
 
 // TODO: Move together, there's code repetition here
 import {
   INIT_GAME,
   MOVE,
-  OPPONENT_DISCONNECTED,
   GAME_ADDED,
-  GAME_ALERT,
   GAME_ENDED,
   GAME_JOINED,
   GAME_OVER,
@@ -23,6 +22,7 @@ import {
   EXIT_GAME,
   JOIN_ROOM,
   USER_TIMEOUT,
+  GAME_NOT_FOUND,
 } from "@/constants/game";
 
 import { Result, GameResult } from "@/types/game";
@@ -54,7 +54,8 @@ const Game = () => {
   const session = useSession();
   const user = session.data?.user;
   const route = useRouter();
-  // Todo move to store/context
+  const { toast } = useToast();
+
   const [chess, _setChess] = useState(new Chess());
   const [board, setBoard] = useState(chess.board());
   const [added, setAdded] = useState(false);
@@ -72,11 +73,11 @@ const Game = () => {
     userSelectedMoveIndexRef.current = userSelectedMoveIndex;
   }, [userSelectedMoveIndex]);
 
-  useEffect(() => {
-    if (!user) {
-      window.location.href = "/";
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (!user) {
+  //     window.location.href = "/";
+  //   }
+  // }, [user]);
 
   useEffect(() => {
     if (!socket) {
@@ -176,6 +177,14 @@ const Game = () => {
           setPlayer2TimeConsumed(message.payload.player2Time);
           break;
 
+        case GAME_NOT_FOUND:
+          toast({
+            variant: "destructive",
+            title: "Uh oh! Something went wrong.",
+            description: "Your requested game not found",
+          });
+          route.push("/");
+          break;
         default:
           alert(message.payload.message);
           break;
