@@ -76,7 +76,7 @@ const Game = () => {
   useEffect(() => {
     if (!user) {
       toast({
-        variant: "default",
+        variant: "destructive",
         title: "Something went wrong.",
         description: "Please Login First",
       });
