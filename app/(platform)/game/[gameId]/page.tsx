@@ -36,7 +36,7 @@ import {
   userSelectedMoveIndexAtom,
 } from "@/context/recoilContextProvider";
 import GameEndModal from "./_components/GameEndModal";
-import { Waitopponent } from "./_components/waitopponent";
+import { Wait } from "./_components/wait";
 import { ShareGame } from "./_components/ShareGame";
 import ExitGameModel from "./_components/ExitGameModel";
 
@@ -248,7 +248,13 @@ const Game = () => {
     route.push("/");
   };
 
-  if (!socket) return <div>Connecting...</div>;
+  if (!socket)
+    return (
+      <Wait
+        title={"Waiting for connection"}
+        description={"Getting your game ready"}
+      />
+    );
 
   return (
     <div className="">
@@ -332,7 +338,10 @@ const Game = () => {
                   {added ? (
                     <div className="flex flex-col items-center space-y-4 justify-center">
                       <div className="text-white">
-                        <Waitopponent />
+                        <Wait
+                          title={"Waiting for opponenets"}
+                          description={"Your opponent will join soon"}
+                        />
                       </div>
                       <ShareGame gameId={gameID} />
                     </div>

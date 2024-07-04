@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { GameResult, Result } from "@/types/game";
+import { useRouter } from "next/router";
 
 interface ModalProps {
   blackPlayer?: { id: string; name: string };
@@ -13,9 +14,11 @@ const GameEndModal: React.FC<ModalProps> = ({
   gameResult,
 }) => {
   const [isOpen, setIsOpen] = useState(true);
+  const route = useRouter();
 
   const closeModal = () => {
     setIsOpen(false);
+    route.push("/");
   };
 
   const PlayerDisplay = ({

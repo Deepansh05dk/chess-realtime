@@ -1,8 +1,14 @@
-export function Waitopponent() {
+export function Wait({
+  title,
+  description,
+}: {
+  title: string;
+  description: string;
+}) {
   return (
     <div className="relative flex flex-col items-center justify-center max-w-sm p-8 bg-gray-900 border-2 border-red-500 rounded-xl shadow-2xl">
       <h5 className="mb-6 text-2xl font-bold tracking-tight text-red-500 font-mono text-center">
-        Waiting for opponent...
+        {title}...
       </h5>
       <div role="status" className="relative">
         <svg
@@ -23,9 +29,7 @@ export function Waitopponent() {
         </svg>
         <span className="sr-only">Loading...</span>
       </div>
-      <p className="mt-4 text-gray-300 font-mono">
-        Your opponent will join soon...
-      </p>
+      <p className="mt-4 text-gray-300 font-mono">{description}...</p>
     </div>
   );
 }
