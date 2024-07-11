@@ -1,3 +1,4 @@
+import { Footer } from "./_components/Footer";
 import { Navbar } from "./_components/Navbar";
 
 export default function MainLayout({
@@ -11,6 +12,7 @@ export default function MainLayout({
       <main className="flex-1 pt-[2rem] pb-1 mx-auto mt-5 h-[100vh] flex justify-center ">
         {children}
       </main>
+      <Footer />
     </div>
   );
 }

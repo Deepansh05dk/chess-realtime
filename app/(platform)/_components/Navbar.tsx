@@ -2,22 +2,18 @@ import { Button } from "@/components/ui/button";
 import React from "react";
 import { signIn, auth, signOut } from "@/auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import Link from "next/link";
+import { Logo } from "@/components/Logo";
+
 
 export async function Navbar() {
   const session = await auth();
   return (
-    <header>
-      <div className="mx-auto max-w-screen-xl px-4 py-6 sm:px-6 lg:px-8">
+    <header className="w-full">
+      <div className="mx-auto max-w-screen-xl px-4 py-6 sm:px-6 lg:px-8 ">
         <div className="flex items-center justify-between">
           <div className="text-left">
-            <Link href={"/"}>
-              <h1 className="text-xl font-bold text-white sm:text-3xl cursor-pointer">
-                ChessPlay.com
-              </h1>
-            </Link>
+            <Logo />
           </div>
-
           <div className=" flex  gap-4  flex-row items-center">
             <form
               action={async () => {
