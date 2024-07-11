@@ -55,7 +55,7 @@ const Game = () => {
   const user = session.data?.user;
   const route = useRouter();
   const { toast } = useToast();
-
+  console.log(session)
   const [chess, _setChess] = useState(new Chess());
   const [board, setBoard] = useState(chess.board());
   const [added, setAdded] = useState(false);
@@ -74,6 +74,7 @@ const Game = () => {
   }, [userSelectedMoveIndex]);
 
   useEffect(() => {
+    console.log(user)
     if (!user) {
       toast({
         variant: "destructive",
@@ -82,7 +83,7 @@ const Game = () => {
       });
       route.push("/");
     }
-  }, [user]);
+  }, [session.status]);
 
   useEffect(() => {
     if (!socket) {
@@ -125,7 +126,7 @@ const Game = () => {
             }
             setMoves((moves) => [...moves, move]);
             moveAudio?.play();
-          } catch (error) {}
+          } catch (error) { }
           break;
         case GAME_OVER:
           setResult(message.payload.result);
@@ -268,7 +269,7 @@ const Game = () => {
       {started && (
         <div className="justify-center flex pt-4 text-white">
           {(user?.id === gameMetadata?.blackPlayer?.id ? "b" : "w") ===
-          chess.turn()
+            chess.turn()
             ? "Your turn"
             : "Opponent's turn"}
         </div>

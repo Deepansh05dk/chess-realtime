@@ -8,16 +8,19 @@ import {
 } from "@/components/ui/card";
 import GameModeComponent from "./GameModeComponent";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export function PlayCard() {
   const router = useRouter();
   const gameModeData = [
     {
       icon: (
-        <img
+        <Image
           src="/lightning-bolt.png"
           className="inline-block mt-1 h-7 w-7"
           alt="online"
+          width={50}
+          height={50}
         />
       ),
       title: "Play Online",
@@ -36,7 +39,7 @@ export function PlayCard() {
           <p className="text-white">
             Play <span className="text-[#602C1A] font-bold pt-1">Chess</span>
           </p>
-          <img className="pl-1 w-3/4 mt-4" src="/chess-icon.jpg" alt="chess" />
+          <Image className="pl-1 w-3/4 mt-4" src="/chess-icon.jpg" alt="chess" width={150} height={150} />
         </CardTitle>
         <CardDescription />
       </CardHeader>
