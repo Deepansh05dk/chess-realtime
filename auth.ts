@@ -15,11 +15,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             email: user.email,
             name: profile?.name,
             provider: "GOOGLE",
-            id: user.id,
+            id: profile?.sub as string,
           },
           update: {
             name: profile?.name,
-            id: user.id,
           },
           where: {
             email: user.email,
@@ -28,14 +27,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return true;
     },
-    jwt: ({ token, user }) => {
-      if (user) {
-        token.id = user.id as string;
+    jwt: ({ token, profile }) => {
+      if (profile) {
+        token.id = profile?.sub as string;
       }
       return token;
     },
     session: ({ session, token }) => {
-      if (session) {
+      if (session && token.id) {
         session.user.id = token.id;
       }
       return session;

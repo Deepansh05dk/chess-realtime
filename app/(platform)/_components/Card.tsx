@@ -24,7 +24,7 @@ export function PlayCard() {
         />
       ),
       title: "Play Online",
-      description: "Play vs a Person of Similar Skill",
+      description: "Play with other person",
       onClick: () => {
         router.push("/game/random");
       },
@@ -36,10 +36,10 @@ export function PlayCard() {
     <Card className="bg-transparent border-none">
       <CardHeader className="pb-3 text-center">
         <CardTitle className="font-semibold tracking-wide flex flex-col items-center justify-center">
-          <p className="text-white">
-            Play <span className="text-[#602C1A] font-bold pt-1">Chess</span>
+          <p className="text-white text-4xl">
+            Play <span className="text-gray-800 font-extrabold pt-1">Chess</span> Online
           </p>
-          <Image className="pl-1 w-3/4 mt-4" src="/chess-icon.jpg" alt="chess" width={150} height={150} />
+          <Image className="pl-1 w-3/4 mt-4" src="/chess-icon.png" alt="chess" width={150} height={150} />
         </CardTitle>
         <CardDescription />
       </CardHeader>

@@ -7,9 +7,9 @@ export default function MainLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex border-collapse flex-col min-h-[100vh] bg-slate-400 overflow-x-scroll no-scrollbar ">
+    <div className="flex border-collapse flex-col min-h-[100vh] bg-slate-400 ">
       <Navbar />
-      <main className="flex-1 pt-[2rem] pb-1 mx-auto mt-5 h-[100vh] flex justify-center ">
+      <main className="flex-1 pt-[2rem] pb-1 mt-5 flex justify-center overflow-x-scroll no-scrollbar">
         {children}
       </main>
       <Footer />

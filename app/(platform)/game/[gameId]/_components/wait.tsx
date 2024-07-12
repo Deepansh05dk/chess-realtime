@@ -6,8 +6,8 @@ export function Wait({
   description: string;
 }) {
   return (
-    <div className="relative flex flex-col items-center justify-center max-w-sm p-8 bg-gray-900 border-2 border-red-500 rounded-xl shadow-2xl">
-      <h5 className="mb-6 text-2xl font-bold tracking-tight text-red-500 font-mono text-center">
+    <div className="relative flex flex-col items-center justify-center max-w-3xl p-8 bg-gray-900 border-2 border-red-500 rounded-xl shadow-2xl">
+      <h5 className="mb-6 text-4xl font-bold tracking-tight text-red-500 font-mono text-center">
         {title}...
       </h5>
       <div role="status" className="relative">
@@ -29,7 +29,7 @@ export function Wait({
         </svg>
         <span className="sr-only">Loading...</span>
       </div>
-      <p className="mt-4 text-gray-300 font-mono">{description}...</p>
+      <p className="mt-4 text-gray-300 text-2xl text-center font-mono">{description}</p>
     </div>
   );
 }

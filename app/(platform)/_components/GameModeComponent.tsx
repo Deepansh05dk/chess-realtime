@@ -18,15 +18,15 @@ const GameModeComponent = ({
 }: GameModeComponent) => (
   <div
     onClick={onClick}
-    className="-mx-2 mt-1 bg-bgAuxiliary2 flex items-start space-x-4 rounded-sm p-2 transition-all shadow-lg bg-slate-600 "
+    className="-mx-4 mt-1 bg-bgAuxiliary2 hover:scale-[1.02] flex items-start space-x-4 rounded-sm p-2 transition-all shadow-lg bg-slate-600 "
   >
     {icon}
 
     <div className="space-y-1">
-      <p className="text-sm pt-1 font-medium leading-none text-slate-300">
+      <p className="text-xl pt-1 font-extrabold leading-none text-white">
         {title}
       </p>
-      <p className="text-xs font-medium text-white pt-2 text-muted-foreground">
+      <p className="text-sm font-medium text-slate-100 pt-2 text-muted-foreground">
         {description}
       </p>
       {disabled && (

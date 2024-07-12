@@ -55,7 +55,7 @@ const Game = () => {
   const user = session.data?.user;
   const route = useRouter();
   const { toast } = useToast();
-  console.log(session)
+  const [disable, setDisabled] = useState(false)
   const [chess, _setChess] = useState(new Chess());
   const [board, setBoard] = useState(chess.board());
   const [added, setAdded] = useState(false);
@@ -74,10 +74,9 @@ const Game = () => {
   }, [userSelectedMoveIndex]);
 
   useEffect(() => {
-    console.log(user)
     if (!user) {
       toast({
-        variant: "destructive",
+        variant: "default",
         title: "Something went wrong.",
         description: "Please Login First",
       });
@@ -253,7 +252,7 @@ const Game = () => {
     return (
       <Wait
         title={"Waiting for connection"}
-        description={"Getting your game ready"}
+        description={" Please be patient,this may take up to 40-50 seconds as the backend is hosted on a free service. Once started, there will be no inconvenience while playing, as the initial delay is due to cold start after server inactivity."}
       />
     );
 
@@ -298,21 +297,21 @@ const Game = () => {
                       </div>
                     </div>
                   )}
-                  <div>
-                    <div className={`w-full flex justify-center text-white`}>
-                      <ChessBoard
-                        started={started}
-                        gameId={(gameId as string) ?? ""}
-                        myColor={
-                          user?.id === gameMetadata?.blackPlayer?.id ? "b" : "w"
-                        }
-                        chess={chess}
-                        setBoard={setBoard}
-                        socket={socket}
-                        board={board}
-                      />
-                    </div>
+
+                  <div className="w-full flex  justify-center text-white">
+                    <ChessBoard
+                      started={started}
+                      gameId={(gameId as string) ?? ""}
+                      myColor={
+                        user?.id === gameMetadata?.blackPlayer?.id ? "b" : "w"
+                      }
+                      chess={chess}
+                      setBoard={setBoard}
+                      socket={socket}
+                      board={board}
+                    />
                   </div>
+
                   {started && (
                     <div className="mt-4 flex justify-between">
                       <UserAvatar
@@ -333,7 +332,6 @@ const Game = () => {
               </div>
             </div>
             <div className="rounded-md pt-2 bg-bgAuxiliary3 flex-1 overflow-auto h-[95vh] overflow-y-scroll no-scrollbar">
-              {started && <div>hello </div>}
               {!started ? (
                 <div className="pt-8 flex justify-center w-full">
                   {added ? (
@@ -349,7 +347,10 @@ const Game = () => {
                   ) : (
                     gameId === "random" && (
                       <Button
+                        className="bg-slate-700 text-xl px-6"
+                        disabled={disable}
                         onClick={() => {
+                          setDisabled(true)
                           socket.send(
                             JSON.stringify({
                               type: INIT_GAME,
@@ -357,7 +358,7 @@ const Game = () => {
                           );
                         }}
                       >
-                        Play
+                        Click to Play
                       </Button>
                     )
                   )}
