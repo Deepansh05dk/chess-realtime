@@ -55,7 +55,7 @@ const Game = () => {
   const user = session.data?.user;
   const route = useRouter();
   const { toast } = useToast();
-  const [disable, setDisabled] = useState(false)
+  const [disable, setDisabled] = useState(false);
   const [chess, _setChess] = useState(new Chess());
   const [board, setBoard] = useState(chess.board());
   const [added, setAdded] = useState(false);
@@ -125,7 +125,7 @@ const Game = () => {
             }
             setMoves((moves) => [...moves, move]);
             moveAudio?.play();
-          } catch (error) { }
+          } catch (error) {}
           break;
         case GAME_OVER:
           setResult(message.payload.result);
@@ -252,7 +252,9 @@ const Game = () => {
     return (
       <Wait
         title={"Waiting for connection"}
-        description={" Please be patient,this may take up to 40-50 seconds as the backend is hosted on a free service. Once started, there will be no inconvenience while playing, as the initial delay is due to cold start after server inactivity."}
+        description={
+          " Please be patient,this may take up to 40-50 seconds as the backend is hosted on a free service. Once started, there will be no inconvenience while playing, as the initial delay is due to cold start after server inactivity."
+        }
       />
     );
 
@@ -268,7 +270,7 @@ const Game = () => {
       {started && (
         <div className="justify-center flex pt-4 text-white">
           {(user?.id === gameMetadata?.blackPlayer?.id ? "b" : "w") ===
-            chess.turn()
+          chess.turn()
             ? "Your turn"
             : "Opponent's turn"}
         </div>
@@ -342,7 +344,7 @@ const Game = () => {
                           description={"Your opponent will join soon"}
                         />
                       </div>
-                      <ShareGame gameId={gameID} />
+                      {/* <ShareGame gameId={gameID} /> */}
                     </div>
                   ) : (
                     gameId === "random" && (
@@ -350,7 +352,7 @@ const Game = () => {
                         className="bg-slate-700 text-xl px-6"
                         disabled={disable}
                         onClick={() => {
-                          setDisabled(true)
+                          setDisabled(true);
                           socket.send(
                             JSON.stringify({
                               type: INIT_GAME,

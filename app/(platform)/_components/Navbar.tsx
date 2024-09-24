@@ -5,7 +5,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Logo } from "@/components/Logo";
 import Image from "next/image";
 
-
 export async function Navbar() {
   const session = await auth();
   return (
@@ -18,7 +17,6 @@ export async function Navbar() {
               action={async () => {
                 "use server";
                 const user = await signIn("google");
-                console.log(user);
               }}
             >
               {session ? (
@@ -27,7 +25,7 @@ export async function Navbar() {
                   type="submit"
                   formAction={async () => {
                     "use server";
-                    await signOut({ redirectTo: '/' });
+                    await signOut({ redirectTo: "/" });
                   }}
                 >
                   Logout
